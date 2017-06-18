@@ -22,6 +22,14 @@ shinyServer(function(input, output) {
                ylab="Damage Millions of US Dollars",
                main="Damage from Named US Hurricanes",
                cex=1.5, pch=16, bty="n")
+          if (input$showKatrina) {
+                rowKatrina <- hurricNamed[hurricNamed$Name=="Katrina",]
+                points(rowKatrina$LF.WindsMPH,rowKatrina$BaseDamage, col="red",cex=3)
+          }
+          if (input$showSandy) {
+                rowSandy <- hurricNamed[hurricNamed$Name=="Sandy",]
+                points(rowSandy$LF.WindsMPH,rowSandy$BaseDamage, col="darkgreen",cex=3)
+          }
           if (!is.null(model())) {
                 abline(model(), col="blue",lwd=2)
           }
@@ -30,9 +38,11 @@ shinyServer(function(input, output) {
    output$modelOutputs = renderText({
       if (input$showModelOutputs){
           if (is.null(model())){
-             "No Model"
-          } else {
-             paste("Intercept:",model()[[1]][1],"Slope:",model()[[1]][2])
+                "MODEL OUTPUTS: No Model"
+          } else { #sprintf(fmt="%.4f+%.6f",pi,exp(1)) 
+             intercept <- sprintf(fmt="%.0f",model()[[1]][1])
+             slope     <- sprintf(fmt="%.2f",model()[[1]][2])
+             paste("MODEL OUTPUTS: Intercept:",intercept,"Slope:",slope)
           }
        } else{
           ""

@@ -8,8 +8,12 @@ shinyUI(fluidPage(
     sidebarPanel(
       p("Things to try:"),
       p("1. Select a region of the graph"),
-      p("2. Click Show Model to see fit line on graph and intercept, slope values"),
-      checkboxInput("showModelOutputs","showModelOutputs",value=TRUE)
+      p("2. Check Show Model to see fit line on graph and intercept, slope values"),
+      p("3. Uncheck the Hurricane Katrina and/or Sandy buttons"),
+      checkboxInput("showModelOutputs","Show Model Outputs",value=TRUE),
+      checkboxInput("showKatrina","Indicate Hurricane Katrina (Red)",value=TRUE),
+      checkboxInput("showSandy","Indicate Hurricane Sandy (Green)",value=TRUE)#,
+     # sliderInput("yearSlider","Limit the Number of Years",1950,2012,value=c(1950,2012))
     ),
 
     mainPanel(
