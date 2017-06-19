@@ -2,9 +2,22 @@ library(shiny);library(DAAG)
 
 shinyServer(function(input, output) {
 
+    getData <- reactive({
+          minYr <- input$yearSlider[1]
+          maxYr <- input$yearSlider[2]
+          
+          yearRangeIndex <- which(hurricNamed$Year >= minYr & hurricNamed$Year <= maxYr )
+          
+          dataX <- hurricNamed$LF.WindsMPH[yearRangeIndex]
+          dataY <- hurricNamed$BaseDamage[yearRangeIndex]
+          
+          df <- data.frame(LF.WindsMPH=dataX,BaseDamage=dataY)
+    })      
+      
     model <- reactive({
 
-          brushed_data <- brushedPoints(hurricNamed,
+          df <- getData()
+          brushed_data <- brushedPoints(df,
                  input$plotBrush, 
                  #brush,
                  xvar="LF.WindsMPH", yvar="BaseDamage")
@@ -17,9 +30,21 @@ shinyServer(function(input, output) {
     })        
   
     output$plot1 <- renderPlot({
-          plot(hurricNamed$LF.WindsMPH,hurricNamed$BaseDamage,
+          
+          xLimit <- range(hurricNamed$LF.WindsMPH)
+          yLimit <- range(hurricNamed$BaseDamage)
+          
+          minYr <- input$yearSlider[1]
+          maxYr <- input$yearSlider[2]
+
+          yearRangeIndex <- which(hurricNamed$Year >= minYr & hurricNamed$Year <= maxYr )
+          
+          dataX <- hurricNamed$LF.WindsMPH[yearRangeIndex]
+          dataY <- hurricNamed$BaseDamage[yearRangeIndex]
+          
+          plot(dataX,dataY, xlim = xLimit, ylim=yLimit,
                xlab="Windspeed (mph)", 
-               ylab="Damage Millions of US Dollars",
+               ylab="Damage (Millions of US Dollars)",
                main="Damage from Named US Hurricanes",
                cex=1.5, pch=16, bty="n")
           if (input$showKatrina) {
