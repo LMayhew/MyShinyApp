@@ -25,7 +25,9 @@ shinyUI(fluidPage(
             tags$style(HTML("hr {border-top: 1px solid #000000;}"))
       ),
       h4("GitHup Repo:"),
-      uiOutput("myURL")
+      uiOutput("myURL"),
+      h4("Presentation:"),
+      uiOutput("presentation")
     ),
     mainPanel(
        tabsetPanel(type="tabs",

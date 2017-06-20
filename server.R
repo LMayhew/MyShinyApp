@@ -6,7 +6,11 @@ shinyServer(function(input, output) {
          tagList("URL link:", a("https://github.com/LMayhew/MyShinyApp", 
                                 href="https://github.com/LMayhew/MyShinyApp"))
     })      
-      
+
+    output$presentation <- renderUI({
+          tagList("URL link:", a("http://lmayhew.github.io/MyShinyApp",
+                  href="http://lmayhew.github.io/MyShinyApp"))
+    })      
     getData <- reactive({
           minYr <- input$yearSlider[1]
           maxYr <- input$yearSlider[2]
