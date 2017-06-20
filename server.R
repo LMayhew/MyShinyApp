@@ -55,7 +55,7 @@ shinyServer(function(input, output) {
                 rowSandy <- hurricNamed[hurricNamed$Name=="Sandy",]
                 points(rowSandy$LF.WindsMPH,rowSandy$BaseDamage, col="darkgreen",cex=3)
           }
-          if (!is.null(model())) {
+          if (!is.null(model()) && input$showModelOutputs) {
                 abline(model(), col="blue",lwd=2)
           }
     })
