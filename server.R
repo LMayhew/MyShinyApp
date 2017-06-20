@@ -2,6 +2,11 @@ library(shiny);library(DAAG)
 
 shinyServer(function(input, output) {
 
+    output$myURL <- renderUI({
+         tagList("URL link:", a("https://github.com/LMayhew/MyShinyApp", 
+                                href="https://github.com/LMayhew/MyShinyApp"))
+    })      
+      
     getData <- reactive({
           minYr <- input$yearSlider[1]
           maxYr <- input$yearSlider[2]

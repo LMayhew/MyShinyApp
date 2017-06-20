@@ -20,7 +20,12 @@ shinyUI(fluidPage(
       p("3. Check the Hurricane Katrina and/or Sandy buttons to see 
         the data points of these two big hurricanes."),
       p("4. Use the slider to select the years to limit the number
-        of points plotted and used in the model.")
+        of points plotted and used in the model."),
+      tags$hr(
+            tags$style(HTML("hr {border-top: 1px solid #000000;}"))
+      ),
+      h4("GitHup Repo:"),
+      uiOutput("myURL")
     ),
     mainPanel(
        tabsetPanel(type="tabs",
