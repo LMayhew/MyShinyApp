@@ -17,6 +17,12 @@ and gives details of atmosperic pressure and windspeed at landfall,
 estimated damage in millions of dollars and deaths for named
 hurricanes that made landfall in the US mainland from 1950 to 2012.
 
+The GitHub url is 
+[https://github.com/LMayhew/MyShinyApp](https://github.com/LMayhew/MyShinyApp).
+
+MyShinyApp is located at
+[https://lmayhew.shinyapps.io/myshinyapp/](https://lmayhew.shinyapps.io/myshinyapp/)
+
 ## The Plot
 
 ```{r plot, echo=FALSE,message=FALSE}
