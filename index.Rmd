@@ -1,5 +1,5 @@
 ---
-title: "MyShinyAppPresentation"
+title: "MyShinyApp Presentation"
 author: "Laurel Mayhew"
 date: "June 19, 2017"
 output: ioslides_presentation
@@ -9,27 +9,53 @@ output: ioslides_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## R Markdown
+## The data
 
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+MyShinyApp is a shiny application that displays data from US Named Hurricanes.
+The Names US Atlantic Hurricanes data is from the R package "DAAG" 
+and gives details of atmosperic pressure and windspeed at landfall,
+estimated damage in millions of dollars and deaths for named
+hurricanes that made landfall in the US mainland from 1950 to 2012.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+## The Plot
 
-## Slide with Bullets
+```{r plot, echo=FALSE,message=FALSE}
+library(DAAG)
+dataX <- hurricNamed$LF.WindsMPH
+dataY <- hurricNamed$BaseDamage
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
+plot(dataX,dataY, 
+               xlab="Windspeed (mph)", 
+               ylab="Damage (Millions of US Dollars)",
+               main="Damage from Named US Hurricanes",
+               cex=1.5, pch=16, bty="n")
 ```
 
-## Slide with Plot
+## The Model
 
-```{r pressure}
-plot(pressure)
+The linear model used was from the function "lm".  The function being fit was
+
+damage = m * windspeed + b
+
+where m is the slope and b is the intercept.  In MyShinyApp you can take a 
+subset of the data by selecting less than all of it and also by decreasing
+the data range with a slider. Here, we use all the data to determine the coefficients.
+
+```{r model, echo = TRUE, message=FALSE}
+library(DAAG)
+fit <- lm(BaseDamage~LF.WindsMPH, data=hurricNamed)
+fit$coefficients
 ```
+
+## Model and Plot
+
+```{r modelAndPlot, echo=FALSE,message=FALSE}
+plot(dataX,dataY, 
+               xlab="Windspeed (mph)", 
+               ylab="Damage (Millions of US Dollars)",
+               main="Damage from Named US Hurricanes",
+               cex=1.5, pch=16, bty="n")
+abline(fit, col="blue",lwd=2)
+```
+
 
